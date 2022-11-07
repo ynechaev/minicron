@@ -78,6 +78,7 @@
 		DADADD8729186DCA0008F810 /* Date+cronTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+cronTime.swift"; sourceTree = "<group>"; };
 		DADADD8929187BEF0008F810 /* CronOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CronOutput.swift; sourceTree = "<group>"; };
 		DADADD8B29187D190008F810 /* ConfigValueTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigValueTests.swift; sourceTree = "<group>"; };
+		DADADD8D291920100008F810 /* Readme.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Readme.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +133,7 @@
 			isa = PBXGroup;
 			children = (
 				DA9AAAB329087FEA007FD1A6 /* main.swift */,
+				DADADD8D291920100008F810 /* Readme.md */,
 				DADADD7D291861760008F810 /* ArgumentParser.swift */,
 			);
 			path = minicron;

@@ -17,11 +17,8 @@ var simulatedTime: CronTime = Date().asCronTime
 // configure with passed arguments
 func configure() {
     if let timeArg = ArgumentParser.parseArgument(at: 0) {
-        do {
-            simulatedTime = try CronTime(argString: timeArg)
-        } catch {
-            print("Simulated time parsing error: \(error)")
-            exit(1)
+        if let time = CronTime(rawValue: timeArg) {
+            simulatedTime = time
         }
     }
 }

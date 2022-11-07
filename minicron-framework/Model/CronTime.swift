@@ -13,11 +13,7 @@ public enum CronError: Error {
     case invalidMinutesRange(UInt)
 }
 
-enum CronWhen: String {
-    case today = "today"
-    case tomorrow = "tomorrow"
-}
-
+/// Main time (hours and minutes) container. Input values are validated.
 public struct CronTime: Comparable {
     let hours: ConfigValue
     let minutes: ConfigValue
@@ -25,16 +21,30 @@ public struct CronTime: Comparable {
     static let hoursRange = 0...23
     static let minutesRange = 0...59
     
+    /// Human readable representation
+    /// - Returns: A String of a format hh:mm
     public func asString() -> String {
         [hours.asString(long: false), minutes.asString(long: true)].joined(separator: ":")
     }
     
-    public func nextTrigger(against currentTime: CronTime) -> String {
+    /// Calculate next task trigger time
+    /// - Parameter currentTime: current time against which the calculation will be performed
+    /// - Returns: NextTriggerOutput struct
+    public func nextTrigger(against currentTime: CronTime) -> NextTriggerOutput {
+        // check if task and current time are equal
         let equal: Bool = self == currentTime
-        let today: CronWhen = equal ? .today : currentTime < self ? .today : .tomorrow
+        
+        // task will be considered equal even if it matches using wildcard symbols '*'
+        let when: CronWhen = equal ? .today : currentTime < self ? .today : .tomorrow
                 
-        var h = today == .today ? max(hours, currentTime.hours) : hours
-        var m = today == .today && hours == currentTime.hours ? max(minutes, currentTime.minutes) : minutes
+        // Take max hour if planned for today, otherwise just take task hours
+        var h = when == .today ? max(hours, currentTime.hours) : hours
+        
+        // Take max minute if task planned for today and hour is equal, otherwise
+        // just take task minutes
+        var m = when == .today && hours == currentTime.hours ? max(minutes, currentTime.minutes) : minutes
+        
+        // Replace wildcard with zeros
         
         if case ConfigValue.wildcard = h {
             h = ConfigValue(0)
@@ -44,9 +54,9 @@ public struct CronTime: Comparable {
             m = ConfigValue(0)
         }
         
+        // Create trigger time struct
         let trigger = try! CronTime(hours: h, minutes: m)
-        
-        return String(format: "%@ %@", trigger.asString(), today.rawValue)
+        return NextTriggerOutput(time: trigger, when: when)
     }
     
     public static func < (lhs: CronTime, rhs: CronTime) -> Bool {
@@ -82,6 +92,8 @@ public struct CronTime: Comparable {
         self.minutes = ConfigValue(minutes)
     }
     
+    /// Initialize with arg string directly
+    /// - Parameter argString: Argument string of format hh:mm
     public init(argString: String) throws {
         let comps = argString.components(separatedBy: ":")
         if comps.count != 2 {

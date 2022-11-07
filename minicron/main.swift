@@ -42,7 +42,7 @@ func readInput() {
 // build next task trigger schedule
 func buildSchedule() -> [String] {
     return configs.compactMap { config in
-        return [config.time.nextTrigger(against: simulatedTime),
+        return [config.time.nextTrigger(against: simulatedTime).rawValue,
                 config.task].joined(separator: " - ")
     }
 }

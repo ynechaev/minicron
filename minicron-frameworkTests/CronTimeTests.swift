@@ -92,7 +92,7 @@ final class CronTimeTests: XCTestCase {
         let next = job.nextTrigger(against: current)
         
         // then
-        XCTAssertEqual(next, "15:30 today")
+        XCTAssertEqual(next, NextTriggerOutput(rawValue:"15:30 today"))
     }
     
     func testCronNextTriggerWildcardHours() throws {
@@ -102,7 +102,7 @@ final class CronTimeTests: XCTestCase {
 
         // when
         let next = job.nextTrigger(against: current)
-        XCTAssertEqual(next, "15:30 today")
+        XCTAssertEqual(next, NextTriggerOutput(rawValue:"15:30 today"))
     }
     
     func testCronNextTriggerWildcardAll() throws {
@@ -112,7 +112,7 @@ final class CronTimeTests: XCTestCase {
 
         // when
         let next = job.nextTrigger(against: current)
-        XCTAssertEqual(next, "15:10 today")
+        XCTAssertEqual(next, NextTriggerOutput(rawValue:"15:10 today"))
     }
     
     func testCronNextTriggerWildcardMinutes() throws {
@@ -122,7 +122,7 @@ final class CronTimeTests: XCTestCase {
 
         // when
         let next = job.nextTrigger(against: current)
-        XCTAssertEqual(next, "15:10 today")
+        XCTAssertEqual(next, NextTriggerOutput(rawValue:"15:10 today"))
     }
     
     func testCronNextTriggerTomorrow() throws {
@@ -132,7 +132,7 @@ final class CronTimeTests: XCTestCase {
 
         // when
         let next = job.nextTrigger(against: current)
-        XCTAssertEqual(next, "14:30 tomorrow")
+        XCTAssertEqual(next, NextTriggerOutput(rawValue:"14:30 tomorrow"))
     }
     
     func testCronNextTriggerTomorrowMidnight() throws {
@@ -144,7 +144,7 @@ final class CronTimeTests: XCTestCase {
         let next = job.nextTrigger(against: current)
         
         // then
-        XCTAssertEqual(next, "0:15 tomorrow")
+        XCTAssertEqual(next, NextTriggerOutput(rawValue:"0:15 tomorrow"))
     }
     
     func testCronNextTriggerTomorrowMidnightZero() throws {
@@ -156,7 +156,7 @@ final class CronTimeTests: XCTestCase {
         let next = job.nextTrigger(against: current)
         
         // then
-        XCTAssertEqual(next, "0:00 tomorrow")
+        XCTAssertEqual(next, NextTriggerOutput(rawValue:"0:00 tomorrow"))
     }
     
     func testCronNextEqual() throws {
@@ -168,7 +168,7 @@ final class CronTimeTests: XCTestCase {
         let next = job.nextTrigger(against: current)
         
         // then
-        XCTAssertEqual(next, "23:59 today")
+        XCTAssertEqual(next, NextTriggerOutput(rawValue:"23:59 today"))
     }
     
     // MARK: - Boundaries
@@ -205,7 +205,7 @@ extension CronTimeTests {
         let next = job.nextTrigger(against: current)
 
         // then
-        XCTAssertEqual(next, "1:30 tomorrow")
+        XCTAssertEqual(next, NextTriggerOutput(rawValue:"1:30 tomorrow"))
     }
     
     func testCronHourly() throws {
@@ -217,7 +217,7 @@ extension CronTimeTests {
         let next = job.nextTrigger(against: current)
 
         // then
-        XCTAssertEqual(next, "16:45 today")
+        XCTAssertEqual(next, NextTriggerOutput(rawValue:"16:45 today"))
     }
     
     func testCronEveryMinute() throws {
@@ -229,7 +229,7 @@ extension CronTimeTests {
         let next = job.nextTrigger(against: current)
 
         // then
-        XCTAssertEqual(next, "16:10 today")
+        XCTAssertEqual(next, NextTriggerOutput(rawValue:"16:10 today"))
     }
     
     func testCronSixtyTimes() throws {
@@ -241,7 +241,7 @@ extension CronTimeTests {
         let next = job.nextTrigger(against: current)
 
         // then
-        XCTAssertEqual(next, "19:00 today")
+        XCTAssertEqual(next, NextTriggerOutput(rawValue:"19:00 today"))
     }
     
 }

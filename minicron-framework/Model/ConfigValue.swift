@@ -7,6 +7,11 @@
 
 import Foundation
 
+public enum CronWhen: String {
+    case today = "today"
+    case tomorrow = "tomorrow"
+}
+
 public enum ConfigValue: Comparable {
     
     case value(UInt)
@@ -30,6 +35,9 @@ public enum ConfigValue: Comparable {
         self = .value(value)
     }
     
+    /// Represent time struct in a human readable format
+    /// - Parameter long: Render extra preceding zero
+    /// - Returns: Time string with format hh:mm
     public func asString(long: Bool) -> String {
         if case .value(let int) = self {
             if long {

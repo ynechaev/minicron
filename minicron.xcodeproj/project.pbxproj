@@ -20,6 +20,8 @@
 		DADADD8229186D560008F810 /* ConfigValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADADD8129186D560008F810 /* ConfigValue.swift */; };
 		DADADD8529186DA50008F810 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADADD8429186DA50008F810 /* Config.swift */; };
 		DADADD8829186DCA0008F810 /* Date+cronTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADADD8729186DCA0008F810 /* Date+cronTime.swift */; };
+		DADADD8A29187BEF0008F810 /* NextTriggerOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADADD8929187BEF0008F810 /* NextTriggerOutput.swift */; };
+		DADADD8C29187D190008F810 /* ConfigValueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADADD8B29187D190008F810 /* ConfigValueTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +78,8 @@
 		DADADD8129186D560008F810 /* ConfigValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigValue.swift; sourceTree = "<group>"; };
 		DADADD8429186DA50008F810 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		DADADD8729186DCA0008F810 /* Date+cronTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+cronTime.swift"; sourceTree = "<group>"; };
+		DADADD8929187BEF0008F810 /* NextTriggerOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextTriggerOutput.swift; sourceTree = "<group>"; };
+		DADADD8B29187D190008F810 /* ConfigValueTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigValueTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +155,7 @@
 			children = (
 				DA9AAACD290880A4007FD1A6 /* minicron_frameworkTests.swift */,
 				DADADD7B29184BAB0008F810 /* CronTimeTests.swift */,
+				DADADD8B29187D190008F810 /* ConfigValueTests.swift */,
 			);
 			path = "minicron-frameworkTests";
 			sourceTree = "<group>";
@@ -167,6 +172,7 @@
 			children = (
 				DADADD73291847830008F810 /* CronTime.swift */,
 				DADADD8129186D560008F810 /* ConfigValue.swift */,
+				DADADD8929187BEF0008F810 /* NextTriggerOutput.swift */,
 				DADADD8429186DA50008F810 /* Config.swift */,
 			);
 			path = Model;
@@ -325,6 +331,7 @@
 				DADADD8529186DA50008F810 /* Config.swift in Sources */,
 				DADADD8829186DCA0008F810 /* Date+cronTime.swift in Sources */,
 				DADADD74291847830008F810 /* CronTime.swift in Sources */,
+				DADADD8A29187BEF0008F810 /* NextTriggerOutput.swift in Sources */,
 				DADADD8229186D560008F810 /* ConfigValue.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -333,6 +340,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DADADD8C29187D190008F810 /* ConfigValueTests.swift in Sources */,
 				DADADD7C29184BAB0008F810 /* CronTimeTests.swift in Sources */,
 				DA9AAACE290880A4007FD1A6 /* minicron_frameworkTests.swift in Sources */,
 			);

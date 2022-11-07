@@ -1,13 +1,24 @@
 # ``minicron_framework``
 
-<!--@START_MENU_TOKEN@-->Summary<!--@END_MENU_TOKEN@-->
+Parsing and processing of simple cron jobs
 
 ## Overview
 
-<!--@START_MENU_TOKEN@-->Text<!--@END_MENU_TOKEN@-->
+`CronJob` allows you to map and process cron jobs
 
-## Topics
+### Inputs
+Input line of format `mm hh task` where:
+`mm` is minutes between 0 and 59
+`hh` are hours between 0 and 23
+`task` is executable name
 
-### <!--@START_MENU_TOKEN@-->Group<!--@END_MENU_TOKEN@-->
+#### Example
+```swift
+let everyMinuteJob = CronJob("* * /etc/run_every_minute")
+let dailyJob = CronJob("45 12 /etc/run_daily")
+let hourlyJob = CronJob("30 * /etc/run_hourly")
+let sixtyTimesJob = CronJob("* 17 /etc/run_sixty_times")
+```
 
-- <!--@START_MENU_TOKEN@-->``Symbol``<!--@END_MENU_TOKEN@-->
+### Output
+Call `CronJob.time.nextTrigger(_:)` to get the next execution time possible 

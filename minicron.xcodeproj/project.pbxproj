@@ -10,7 +10,6 @@
 		DA9AAAB429087FEA007FD1A6 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9AAAB329087FEA007FD1A6 /* main.swift */; };
 		DA9AAAC3290880A3007FD1A6 /* minicron_framework.docc in Sources */ = {isa = PBXBuildFile; fileRef = DA9AAAC2290880A3007FD1A6 /* minicron_framework.docc */; };
 		DA9AAAC9290880A4007FD1A6 /* minicron_framework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA9AAABF290880A3007FD1A6 /* minicron_framework.framework */; };
-		DA9AAACE290880A4007FD1A6 /* minicron_frameworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9AAACD290880A4007FD1A6 /* minicron_frameworkTests.swift */; };
 		DA9AAACF290880A4007FD1A6 /* minicron_framework.h in Headers */ = {isa = PBXBuildFile; fileRef = DA9AAAC1290880A3007FD1A6 /* minicron_framework.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DADADD74291847830008F810 /* CronTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADADD73291847830008F810 /* CronTime.swift */; };
 		DADADD76291847E80008F810 /* minicron_framework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA9AAABF290880A3007FD1A6 /* minicron_framework.framework */; };
@@ -71,7 +70,6 @@
 		DA9AAAC1290880A3007FD1A6 /* minicron_framework.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = minicron_framework.h; sourceTree = "<group>"; };
 		DA9AAAC2290880A3007FD1A6 /* minicron_framework.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = minicron_framework.docc; sourceTree = "<group>"; };
 		DA9AAAC8290880A4007FD1A6 /* minicron-frameworkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "minicron-frameworkTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		DA9AAACD290880A4007FD1A6 /* minicron_frameworkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = minicron_frameworkTests.swift; sourceTree = "<group>"; };
 		DADADD73291847830008F810 /* CronTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CronTime.swift; sourceTree = "<group>"; };
 		DADADD7B29184BAB0008F810 /* CronTimeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CronTimeTests.swift; sourceTree = "<group>"; };
 		DADADD7D291861760008F810 /* ArgumentParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArgumentParser.swift; sourceTree = "<group>"; };
@@ -153,7 +151,6 @@
 		DA9AAACC290880A4007FD1A6 /* minicron-frameworkTests */ = {
 			isa = PBXGroup;
 			children = (
-				DA9AAACD290880A4007FD1A6 /* minicron_frameworkTests.swift */,
 				DADADD7B29184BAB0008F810 /* CronTimeTests.swift */,
 				DADADD8B29187D190008F810 /* ConfigValueTests.swift */,
 			);
@@ -342,7 +339,6 @@
 			files = (
 				DADADD8C29187D190008F810 /* ConfigValueTests.swift in Sources */,
 				DADADD7C29184BAB0008F810 /* CronTimeTests.swift in Sources */,
-				DA9AAACE290880A4007FD1A6 /* minicron_frameworkTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

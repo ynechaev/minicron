@@ -16,24 +16,6 @@ public enum TimeType {
     case hours
     case minutes
 }
-//
-//public struct CronHours: Comparable {
-//    let value: CronValue
-//
-//    public static func < (lhs: CronHours, rhs: CronHours) -> Bool {
-//        return lhs.value < rhs.value
-//    }
-//
-//
-//}
-//
-//public struct CronMinutes: Comparable {
-//    public static func < (lhs: CronMinutes, rhs: CronMinutes) -> Bool {
-//        <#code#>
-//    }
-//
-//
-//}
 
 public enum CronValue: Comparable {
     static let hoursRange = 0...23

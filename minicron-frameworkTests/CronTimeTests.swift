@@ -12,67 +12,67 @@ final class CronTimeTests: XCTestCase {
     
     // MARK: - Comparator tests
 
-    func testCronTimeCompareSimplePrior() throws {
-        let current = try CronTime(hours: .init(15), minutes: .init(10))
-        let job = try CronTime(hours: .init(15), minutes: .value(30))
+    func testCronTimeCompareSimplePrior() {
+        let current = CronTime(rawValue: "15:10")!
+        let job = CronTime(rawValue: "15:30")!
 
         XCTAssertTrue(current < job)
     }
     
-    func testCronTimeCompareSimpleAfter() throws {
-        let current = try CronTime(hours: .init(15), minutes: .init(30))
-        let job = try CronTime(hours: .init(15), minutes: .value(10))
+    func testCronTimeCompareSimpleAfter() {
+        let current = CronTime(rawValue: "15:30")!
+        let job = CronTime(rawValue: "15:10")!
 
         XCTAssertTrue(current > job)
     }
     
-    func testCronTimeCompareSimpleAfterNextDay() throws {
-        let current = try CronTime(hours: .init(23), minutes: .init(30))
-        let job = try CronTime(hours: .init(00), minutes: .value(15))
+    func testCronTimeCompareSimpleAfterNextDay() {
+        let current = CronTime(rawValue: "23:30")!
+        let job = CronTime(rawValue: "0:15")!
 
         XCTAssertTrue(current > job)
     }
     
-    func testCronTimeCompareSimpleAfterNextDayWildcard() throws {
-        let current = try CronTime(hours: .init(23), minutes: .init(30))
-        let job = try CronTime(hours: .wildcard, minutes: .value(15))
+    func testCronTimeCompareSimpleAfterNextDayWildcard() {
+        let current = CronTime(rawValue: "23:30")!
+        let job = CronTime(rawValue: "*:15")!
 
         XCTAssertTrue(current > job)
     }
     
-    func testCronTimeCompareSimpleSameTime() throws {
-        let current = try CronTime(hours: .init(12), minutes: .init(00))
-        let job = try CronTime(hours: .init(12), minutes: .init(00))
+    func testCronTimeCompareSimpleSameTime() {
+        let current = CronTime(rawValue: "12:00")!
+        let job = CronTime(rawValue: "12:00")!
 
-        XCTAssertTrue(current < job)
+        XCTAssertEqual(current, job)
     }
     
-    func testCronTimeCompareWildcardSameTime() throws {
-        let current = try CronTime(hours: .init(12), minutes: .init(00))
-        let job = try CronTime(hours: .wildcard, minutes: .init(00))
+    func testCronTimeCompareWildcardSameTime() {
+        let current = CronTime(rawValue: "12:00")!
+        let job = CronTime(rawValue: "*:00")!
 
         XCTAssertTrue(job < current)
     }
     
-    func testCronTimeCompareWildcards() throws {
-        let current = try CronTime(hours: .wildcard, minutes: .wildcard)
-        let job = try CronTime(hours: .wildcard, minutes: .wildcard)
+    func testCronTimeCompareWildcards() {
+        let current = CronTime(rawValue: "*:*")!
+        let job = CronTime(rawValue: "*:*")!
 
-        XCTAssertTrue(current < job)
+        XCTAssertTrue(current == job)
     }
 
-    func testCronTimeCompareWildcard() throws {
-        let current = try CronTime(hours: .init(15), minutes: .init(10))
-        let job = try CronTime(hours: .wildcard, minutes: .value(30))
+    func testCronTimeCompareWildcard() {
+        let current = CronTime(rawValue: "15:10")!
+        let job = CronTime(rawValue: "*:30")!
         
         XCTAssertTrue(current < job)
     }
     
     // MARK: - Short and long notation - 1:30 instead of 01:30
     
-    func testCronTimeShortNotationForTime() throws {
+    func testCronTimeShortNotationForTime() {
         // given
-        let job = try CronTime(hours: .init(1), minutes: .init(1))
+        let job = CronTime(rawValue: "01:01")!
         
         // when
         let string = job.asString()
@@ -83,10 +83,10 @@ final class CronTimeTests: XCTestCase {
     
     // MARK: - next trigger tests
     
-    func testCronNextTriggerSimple() throws {
+    func testCronNextTriggerSimple() {
         // given
-        let current = try CronTime(hours: .init(15), minutes: .init(10))
-        let job = try CronTime(hours: .init(15), minutes: .value(30))
+        let current = CronTime(rawValue: "15:10")!
+        let job = CronTime(rawValue: "15:30")!
 
         // when
         let next = job.nextTrigger(against: current)
@@ -95,50 +95,50 @@ final class CronTimeTests: XCTestCase {
         XCTAssertEqual(next, CronOutput(rawValue:"15:30 today"))
     }
     
-    func testCronNextTriggerWildcardHours() throws {
+    func testCronNextTriggerWildcardHours() {
         // given
-        let current = try CronTime(hours: .init(15), minutes: .init(10))
-        let job = try CronTime(hours: .wildcard, minutes: .value(30))
+        let current = CronTime(rawValue: "15:10")!
+        let job = CronTime(rawValue: "*:30")!
 
         // when
         let next = job.nextTrigger(against: current)
         XCTAssertEqual(next, CronOutput(rawValue:"15:30 today"))
     }
     
-    func testCronNextTriggerWildcardAll() throws {
+    func testCronNextTriggerWildcardAll() {
         // given
-        let current = try CronTime(hours: .init(15), minutes: .init(10))
-        let job = try CronTime(hours: .wildcard, minutes: .wildcard)
+        let current = CronTime(rawValue: "15:10")!
+        let job = CronTime(rawValue: "*:*")!
 
         // when
         let next = job.nextTrigger(against: current)
         XCTAssertEqual(next, CronOutput(rawValue:"15:10 today"))
     }
     
-    func testCronNextTriggerWildcardMinutes() throws {
+    func testCronNextTriggerWildcardMinutes() {
         // given
-        let current = try CronTime(hours: .init(15), minutes: .init(10))
-        let job = try CronTime(hours: .init(15), minutes: .wildcard)
+        let current = CronTime(rawValue: "15:10")!
+        let job = CronTime(rawValue: "15:*")!
 
         // when
         let next = job.nextTrigger(against: current)
         XCTAssertEqual(next, CronOutput(rawValue:"15:10 today"))
     }
     
-    func testCronNextTriggerTomorrow() throws {
+    func testCronNextTriggerTomorrow() {
         // given
-        let current = try CronTime(hours: .init(15), minutes: .init(10))
-        let job = try CronTime(hours: .init(14), minutes: .init(30))
+        let current = CronTime(rawValue: "15:10")!
+        let job = CronTime(rawValue: "14:30")!
 
         // when
         let next = job.nextTrigger(against: current)
         XCTAssertEqual(next, CronOutput(rawValue:"14:30 tomorrow"))
     }
     
-    func testCronNextTriggerTomorrowMidnight() throws {
+    func testCronNextTriggerTomorrowMidnight() {
         // given
-        let current = try CronTime(hours: .init(23), minutes: .init(30))
-        let job = try CronTime(hours: .wildcard, minutes: .init(15))
+        let current = CronTime(rawValue: "23:30")!
+        let job = CronTime(rawValue: "*:15")!
 
         // when
         let next = job.nextTrigger(against: current)
@@ -147,10 +147,10 @@ final class CronTimeTests: XCTestCase {
         XCTAssertEqual(next, CronOutput(rawValue:"0:15 tomorrow"))
     }
     
-    func testCronNextTriggerTomorrowMidnightZero() throws {
+    func testCronNextTriggerTomorrowMidnightZero() {
         // given
-        let current = try CronTime(hours: .init(23), minutes: .init(59))
-        let job = try CronTime(hours: .init(0), minutes: .init(0))
+        let current = CronTime(rawValue: "23:59")!
+        let job = CronTime(rawValue: "0:00")!
 
         // when
         let next = job.nextTrigger(against: current)
@@ -159,10 +159,10 @@ final class CronTimeTests: XCTestCase {
         XCTAssertEqual(next, CronOutput(rawValue:"0:00 tomorrow"))
     }
     
-    func testCronNextEqual() throws {
+    func testCronNextEqual() {
         // given
-        let current = try CronTime(hours: .init(23), minutes: .init(59))
-        let job = try CronTime(hours: .init(23), minutes: .init(59))
+        let current = CronTime(rawValue: "23:59")!
+        let job = CronTime(rawValue: "23:59")!
 
         // when
         let next = job.nextTrigger(against: current)
@@ -173,22 +173,16 @@ final class CronTimeTests: XCTestCase {
     
     // MARK: - Boundaries
     
-    func testCronHour24() throws {
-        do {
-            let _ = try CronTime(hours: .init(24), minutes: .wildcard)
-            XCTFail("Expected to throw")
-        } catch {
-            XCTAssert(true)
-        }
+    func testCronHour24() {
+        XCTAssertNil(CronTime(rawValue: "24:*"))
     }
     
     func testCronMinute60() throws {
-        do {
-            let _ = try CronTime(hours: .wildcard, minutes: .value(60))
-            XCTFail("Expected to throw")
-        } catch {
-            XCTAssert(true)
-        }
+        XCTAssertNil(CronTime(rawValue: "*:60"))
+    }
+    
+    func testCronRandom() throws {
+        XCTAssertNil(CronTime(rawValue: "$%!@#@"))
     }
 
 }
@@ -196,10 +190,10 @@ final class CronTimeTests: XCTestCase {
 // MARK: - Task test suite
 extension CronTimeTests {
     
-    func testCronDaily() throws {
+    func testCronDaily() {
         // given
-        let current = try CronTime(hours: .init(16), minutes: .init(10))
-        let job = try CronTime(hours: .init(1), minutes: .init(30))
+        let current = CronTime(rawValue: "16:10")!
+        let job = CronTime(rawValue: "1:30")!
         
         // when
         let next = job.nextTrigger(against: current)
@@ -208,10 +202,10 @@ extension CronTimeTests {
         XCTAssertEqual(next, CronOutput(rawValue:"1:30 tomorrow"))
     }
     
-    func testCronHourly() throws {
+    func testCronHourly() {
         // given
-        let current = try CronTime(hours: .init(16), minutes: .init(10))
-        let job = try CronTime(hours: .init(16), minutes: .init(45))
+        let current = CronTime(rawValue: "16:10")!
+        let job = CronTime(rawValue: "16:45")!
         
         // when
         let next = job.nextTrigger(against: current)
@@ -220,10 +214,10 @@ extension CronTimeTests {
         XCTAssertEqual(next, CronOutput(rawValue:"16:45 today"))
     }
     
-    func testCronEveryMinute() throws {
+    func testCronEveryMinute() {
         // given
-        let current = try CronTime(hours: .init(16), minutes: .init(10))
-        let job = try CronTime(hours: .wildcard, minutes: .wildcard)
+        let current = CronTime(rawValue: "16:10")!
+            let job = CronTime(rawValue: "*:*")!
         
         // when
         let next = job.nextTrigger(against: current)
@@ -232,10 +226,10 @@ extension CronTimeTests {
         XCTAssertEqual(next, CronOutput(rawValue:"16:10 today"))
     }
     
-    func testCronSixtyTimes() throws {
+    func testCronSixtyTimes() {
         // given
-        let current = try CronTime(hours: .init(16), minutes: .init(10))
-        let job = try CronTime(hours: .init(19), minutes: .wildcard)
+        let current = CronTime(rawValue: "16:10")!
+        let job = CronTime(rawValue: "19:*")!
         
         // when
         let next = job.nextTrigger(against: current)

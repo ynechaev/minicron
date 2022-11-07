@@ -15,7 +15,7 @@ public extension Date {
         let calendar = Calendar.current
         let hour = calendar.component(.hour, from: self)
         let minutes = calendar.component(.minute, from: self)
-        return try! CronTime(hours: .init(hour), minutes: .init(minutes))
+        return try! CronTime(hours: .init(hour, type: .hours), minutes: .init(minutes, type: .minutes))
     }
     
 }

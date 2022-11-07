@@ -24,9 +24,9 @@ public struct CronJob {
         let m = values[0] as String
         let h = values[1] as String
         let t = values[2] as String
-        let hours = try CronValue(h)
-        let minutes = try CronValue(m)
-        self.time = try CronTime(hours: hours, minutes: minutes)
+        let hours = try CronValue(h, type: .hours)
+        let minutes = try CronValue(m, type: .minutes)
+        self.time = CronTime(hours: hours, minutes: minutes)
         self.task = t
     }
 }

@@ -18,7 +18,7 @@ public struct CronOutput: RawRepresentable, Equatable {
     
     public init?(rawValue: String) {
         let parts = rawValue.components(separatedBy: CharacterSet.whitespaces)
-        guard let time = try? CronTime(argString: parts[0]),
+        guard let time = CronTime(rawValue: parts[0]),
               let when = CronWhen(rawValue: parts[1]) else {
             return nil
         }

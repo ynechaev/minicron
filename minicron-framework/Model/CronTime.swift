@@ -9,23 +9,43 @@ import Foundation
 
 public enum CronError: Error {
     case invalidSimulatedTime(String)
-    case invalidHoursRange(UInt)
-    case invalidMinutesRange(UInt)
+    case invalidHoursRange(Int)
+    case invalidMinutesRange(Int)
     case invalidNumber(String)
 }
 
 /// Main time (hours and minutes) container. Input values are validated.
-public struct CronTime: Comparable {
+public struct CronTime: Comparable, RawRepresentable {
+    
+    public var rawValue: String
+    
+    public typealias RawValue = String
+    
     let hours: CronValue
     let minutes: CronValue
     
-    static let hoursRange = 0...23
-    static let minutesRange = 0...59
+    public init?(rawValue: String) {
+        let comps = rawValue.components(separatedBy: ":")
+        if comps.count == 2 {
+            let h = comps[0]
+            let m = comps[1]
+            if let hours = try? CronValue(h, type: .hours),
+               let minutes = try? CronValue(m, type: .minutes) {
+                self.hours = hours
+                self.minutes = minutes
+                self.rawValue = [hours.asString(), minutes.asString()].joined(separator: ":")
+            } else {
+                return nil
+            }
+        } else {
+            return nil
+        }
+    }
     
     /// Human readable representation
     /// - Returns: A String of a format hh:mm
     public func asString() -> String {
-        [hours.asString(long: false), minutes.asString(long: true)].joined(separator: ":")
+        [hours.asString(), minutes.asString()].joined(separator: ":")
     }
     
     /// Calculate next task trigger time
@@ -48,15 +68,15 @@ public struct CronTime: Comparable {
         // Replace wildcard with zeros
         
         if case CronValue.wildcard = h {
-            h = CronValue(0)
+            h = try! CronValue(0, type: .hours)
         }
         
         if case CronValue.wildcard = m {
-            m = CronValue(0)
+            m = try! CronValue(0, type: .minutes)
         }
         
         // Create trigger time struct
-        let trigger = try! CronTime(hours: h, minutes: m)
+        let trigger = CronTime(hours: h, minutes: m)
         return CronOutput(time: trigger, when: when)
     }
     
@@ -72,79 +92,16 @@ public struct CronTime: Comparable {
         return lhs.hours == rhs.hours && lhs.minutes == rhs.minutes
     }
     
-    public init(hours: CronValue, minutes: CronValue) throws {
-        if case CronValue.value(let int) = hours {
-            try CronTime.validateHours(int)
-        }
-        
-        if case CronValue.value(let int) = minutes {
-            try CronTime.validateMinutes(int)
-        }
-        
+    public init(hours: CronValue, minutes: CronValue) {
         self.hours = hours
         self.minutes = minutes
+        self.rawValue = [hours.asString(), minutes.asString()].joined(separator: ":")
     }
     
-    public init(hours: UInt, minutes: UInt) throws {
-        try CronTime.validateHours(hours)
-        try CronTime.validateMinutes(minutes)
-        
-        self.hours = CronValue(hours)
-        self.minutes = CronValue(minutes)
+    public init(_ hours: Int, _ minutes: Int) throws {
+        self.hours = try CronValue(hours, type: .hours)
+        self.minutes = try CronValue(minutes, type: .minutes)
+        self.rawValue = [self.hours.asString(), self.minutes.asString()].joined(separator: ":")
     }
     
-    /// Initialize with arg string directly
-    /// - Parameter argString: Argument string of format hh:mm
-    public init(argString: String) throws {
-        let comps = argString.components(separatedBy: ":")
-        if comps.count != 2 {
-            throw CronError.invalidSimulatedTime(argString)
-        }
-        let h = comps[0]
-        let m = comps[1]
-        
-        try CronTime.validateHours(h)
-        try CronTime.validateMinutes(m)
-        
-        self.hours = try CronValue(h)
-        self.minutes = try CronValue(m)
-    }
-    
-    // MARK: - Validation (Private)
-    
-    private static func validateHours(_ hours: String) throws {
-        guard hours.isNumber else {
-            throw CronError.invalidNumber(hours)
-        }
-        guard hoursRange.contains(Int(hours) ?? 0) else {
-            throw CronError.invalidHoursRange(UInt(hours) ?? 0)
-        }
-    }
-    
-    private static func validateMinutes(_ minutes: String) throws {
-        guard minutes.isNumber else {
-            throw CronError.invalidNumber(minutes)
-        }
-        guard minutesRange.contains(Int(minutes) ?? 0) else {
-            throw CronError.invalidMinutesRange(UInt(minutes) ?? 0)
-        }
-    }
-    
-    private static func validateHours(_ hours: UInt) throws {
-        guard hoursRange.contains(Int(hours)) else {
-            throw CronError.invalidHoursRange(hours)
-        }
-    }
-    
-    private static func validateMinutes(_ minutes: UInt) throws {
-        guard minutesRange.contains(Int(minutes)) else {
-            throw CronError.invalidMinutesRange(minutes)
-        }
-    }
-}
-
-extension String  {
-    var isNumber: Bool {
-        return !isEmpty && rangeOfCharacter(from: CharacterSet.decimalDigits.inverted) == nil
-    }
 }

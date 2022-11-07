@@ -7,6 +7,7 @@ jobs:
     environment:
       FL_OUTPUT_DIR: output
       FASTLANE_LANE: test
+      SCAN_SCHEME: minicron-framework
     steps:
       - checkout
       - run: bundle install

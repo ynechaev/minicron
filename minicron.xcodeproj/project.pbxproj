@@ -17,10 +17,10 @@
 		DADADD77291847E80008F810 /* minicron_framework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DA9AAABF290880A3007FD1A6 /* minicron_framework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DADADD7C29184BAB0008F810 /* CronTimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADADD7B29184BAB0008F810 /* CronTimeTests.swift */; };
 		DADADD7E291861760008F810 /* ArgumentParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADADD7D291861760008F810 /* ArgumentParser.swift */; };
-		DADADD8229186D560008F810 /* ConfigValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADADD8129186D560008F810 /* ConfigValue.swift */; };
-		DADADD8529186DA50008F810 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADADD8429186DA50008F810 /* Config.swift */; };
+		DADADD8229186D560008F810 /* CronValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADADD8129186D560008F810 /* CronValue.swift */; };
+		DADADD8529186DA50008F810 /* CronJob.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADADD8429186DA50008F810 /* CronJob.swift */; };
 		DADADD8829186DCA0008F810 /* Date+cronTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADADD8729186DCA0008F810 /* Date+cronTime.swift */; };
-		DADADD8A29187BEF0008F810 /* NextTriggerOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADADD8929187BEF0008F810 /* NextTriggerOutput.swift */; };
+		DADADD8A29187BEF0008F810 /* CronOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADADD8929187BEF0008F810 /* CronOutput.swift */; };
 		DADADD8C29187D190008F810 /* ConfigValueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADADD8B29187D190008F810 /* ConfigValueTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -75,10 +75,10 @@
 		DADADD73291847830008F810 /* CronTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CronTime.swift; sourceTree = "<group>"; };
 		DADADD7B29184BAB0008F810 /* CronTimeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CronTimeTests.swift; sourceTree = "<group>"; };
 		DADADD7D291861760008F810 /* ArgumentParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArgumentParser.swift; sourceTree = "<group>"; };
-		DADADD8129186D560008F810 /* ConfigValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigValue.swift; sourceTree = "<group>"; };
-		DADADD8429186DA50008F810 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		DADADD8129186D560008F810 /* CronValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CronValue.swift; sourceTree = "<group>"; };
+		DADADD8429186DA50008F810 /* CronJob.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CronJob.swift; sourceTree = "<group>"; };
 		DADADD8729186DCA0008F810 /* Date+cronTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+cronTime.swift"; sourceTree = "<group>"; };
-		DADADD8929187BEF0008F810 /* NextTriggerOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextTriggerOutput.swift; sourceTree = "<group>"; };
+		DADADD8929187BEF0008F810 /* CronOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CronOutput.swift; sourceTree = "<group>"; };
 		DADADD8B29187D190008F810 /* ConfigValueTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigValueTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -171,9 +171,9 @@
 			isa = PBXGroup;
 			children = (
 				DADADD73291847830008F810 /* CronTime.swift */,
-				DADADD8129186D560008F810 /* ConfigValue.swift */,
-				DADADD8929187BEF0008F810 /* NextTriggerOutput.swift */,
-				DADADD8429186DA50008F810 /* Config.swift */,
+				DADADD8129186D560008F810 /* CronValue.swift */,
+				DADADD8429186DA50008F810 /* CronJob.swift */,
+				DADADD8929187BEF0008F810 /* CronOutput.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -328,11 +328,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA9AAAC3290880A3007FD1A6 /* minicron_framework.docc in Sources */,
-				DADADD8529186DA50008F810 /* Config.swift in Sources */,
+				DADADD8529186DA50008F810 /* CronJob.swift in Sources */,
 				DADADD8829186DCA0008F810 /* Date+cronTime.swift in Sources */,
 				DADADD74291847830008F810 /* CronTime.swift in Sources */,
-				DADADD8A29187BEF0008F810 /* NextTriggerOutput.swift in Sources */,
-				DADADD8229186D560008F810 /* ConfigValue.swift in Sources */,
+				DADADD8A29187BEF0008F810 /* CronOutput.swift in Sources */,
+				DADADD8229186D560008F810 /* CronValue.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,7 +9,7 @@ import Foundation
 import minicron_framework
 
 // task config storage
-var configs = [Config]()
+var configs = [CronJob]()
 
 // passed simulated time with a fallback to current time
 var simulatedTime: CronTime = Date().asCronTime
@@ -30,7 +30,7 @@ func configure() {
 func readInput() {
     while let line = readLine() {
         do {
-            let config = try Config(line: line)
+            let config = try CronJob(line: line)
             configs.append(config)
         } catch {
             print(error)

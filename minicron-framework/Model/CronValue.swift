@@ -12,7 +12,7 @@ public enum CronWhen: String {
     case tomorrow = "tomorrow"
 }
 
-public enum ConfigValue: Comparable {
+public enum CronValue: Comparable {
     
     case value(UInt)
     case wildcard
@@ -24,7 +24,7 @@ public enum ConfigValue: Comparable {
             let numbersRange = value.rangeOfCharacter(from: .decimalDigits)
             let hasNumbers = (numbersRange != nil)
             if !hasNumbers {
-                throw ConfigFormatError.invalidConfigValue(value)
+                throw JobFormatError.invalidConfigValue(value)
             } else {
                 self = .value(UInt(value) ?? 0)
             }
@@ -50,7 +50,7 @@ public enum ConfigValue: Comparable {
         }
     }
     
-    public static func < (lhs: ConfigValue, rhs: ConfigValue) -> Bool {
+    public static func < (lhs: CronValue, rhs: CronValue) -> Bool {
         if case .value(let int1) = lhs, case .value(let int2) = rhs {
             return int1 == int2 || int1 < int2
         } else {
@@ -61,7 +61,7 @@ public enum ConfigValue: Comparable {
         return false
     }
     
-    public static func == (lhs: ConfigValue, rhs: ConfigValue) -> Bool {
+    public static func == (lhs: CronValue, rhs: CronValue) -> Bool {
         if case .wildcard = lhs {
             return true
         }

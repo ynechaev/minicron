@@ -7,25 +7,25 @@
 
 import Foundation
 
-public enum ConfigFormatError: Error {
+public enum JobFormatError: Error {
     case invalidParametersCount(Int)
     case invalidConfigValue(String)
 }
 
-public struct Config {
+public struct CronJob {
     public let time: CronTime
     public let task: String
     
     public init(line: String) throws {
         let values = line.components(separatedBy: .whitespaces)
         if values.count != 3 {
-            throw ConfigFormatError.invalidParametersCount(values.count)
+            throw JobFormatError.invalidParametersCount(values.count)
         }
         let m = values[0] as String
         let h = values[1] as String
         let t = values[2] as String
-        let hours = try ConfigValue(h)
-        let minutes = try ConfigValue(m)
+        let hours = try CronValue(h)
+        let minutes = try CronValue(m)
         self.time = try CronTime(hours: hours, minutes: minutes)
         self.task = t
     }

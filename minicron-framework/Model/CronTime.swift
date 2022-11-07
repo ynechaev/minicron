@@ -11,12 +11,13 @@ public enum CronError: Error {
     case invalidSimulatedTime(String)
     case invalidHoursRange(UInt)
     case invalidMinutesRange(UInt)
+    case invalidNumber(String)
 }
 
 /// Main time (hours and minutes) container. Input values are validated.
 public struct CronTime: Comparable {
-    let hours: ConfigValue
-    let minutes: ConfigValue
+    let hours: CronValue
+    let minutes: CronValue
     
     static let hoursRange = 0...23
     static let minutesRange = 0...59
@@ -30,7 +31,7 @@ public struct CronTime: Comparable {
     /// Calculate next task trigger time
     /// - Parameter currentTime: current time against which the calculation will be performed
     /// - Returns: NextTriggerOutput struct
-    public func nextTrigger(against currentTime: CronTime) -> NextTriggerOutput {
+    public func nextTrigger(against currentTime: CronTime) -> CronOutput {
         // check if task and current time are equal
         let equal: Bool = self == currentTime
         
@@ -46,17 +47,17 @@ public struct CronTime: Comparable {
         
         // Replace wildcard with zeros
         
-        if case ConfigValue.wildcard = h {
-            h = ConfigValue(0)
+        if case CronValue.wildcard = h {
+            h = CronValue(0)
         }
         
-        if case ConfigValue.wildcard = m {
-            m = ConfigValue(0)
+        if case CronValue.wildcard = m {
+            m = CronValue(0)
         }
         
         // Create trigger time struct
         let trigger = try! CronTime(hours: h, minutes: m)
-        return NextTriggerOutput(time: trigger, when: when)
+        return CronOutput(time: trigger, when: when)
     }
     
     public static func < (lhs: CronTime, rhs: CronTime) -> Bool {
@@ -71,12 +72,12 @@ public struct CronTime: Comparable {
         return lhs.hours == rhs.hours && lhs.minutes == rhs.minutes
     }
     
-    public init(hours: ConfigValue, minutes: ConfigValue) throws {
-        if case ConfigValue.value(let int) = hours {
+    public init(hours: CronValue, minutes: CronValue) throws {
+        if case CronValue.value(let int) = hours {
             try CronTime.validateHours(int)
         }
         
-        if case ConfigValue.value(let int) = minutes {
+        if case CronValue.value(let int) = minutes {
             try CronTime.validateMinutes(int)
         }
         
@@ -88,8 +89,8 @@ public struct CronTime: Comparable {
         try CronTime.validateHours(hours)
         try CronTime.validateMinutes(minutes)
         
-        self.hours = ConfigValue(hours)
-        self.minutes = ConfigValue(minutes)
+        self.hours = CronValue(hours)
+        self.minutes = CronValue(minutes)
     }
     
     /// Initialize with arg string directly
@@ -101,11 +102,33 @@ public struct CronTime: Comparable {
         }
         let h = comps[0]
         let m = comps[1]
-        self.hours = try ConfigValue(h)
-        self.minutes = try ConfigValue(m)
+        
+        try CronTime.validateHours(h)
+        try CronTime.validateMinutes(m)
+        
+        self.hours = try CronValue(h)
+        self.minutes = try CronValue(m)
     }
     
     // MARK: - Validation (Private)
+    
+    private static func validateHours(_ hours: String) throws {
+        guard hours.isNumber else {
+            throw CronError.invalidNumber(hours)
+        }
+        guard hoursRange.contains(Int(hours) ?? 0) else {
+            throw CronError.invalidHoursRange(UInt(hours) ?? 0)
+        }
+    }
+    
+    private static func validateMinutes(_ minutes: String) throws {
+        guard minutes.isNumber else {
+            throw CronError.invalidNumber(minutes)
+        }
+        guard minutesRange.contains(Int(minutes) ?? 0) else {
+            throw CronError.invalidMinutesRange(UInt(minutes) ?? 0)
+        }
+    }
     
     private static func validateHours(_ hours: UInt) throws {
         guard hoursRange.contains(Int(hours)) else {
@@ -117,5 +140,11 @@ public struct CronTime: Comparable {
         guard minutesRange.contains(Int(minutes)) else {
             throw CronError.invalidMinutesRange(minutes)
         }
+    }
+}
+
+extension String  {
+    var isNumber: Bool {
+        return !isEmpty && rangeOfCharacter(from: CharacterSet.decimalDigits.inverted) == nil
     }
 }

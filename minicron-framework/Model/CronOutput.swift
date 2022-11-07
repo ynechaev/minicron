@@ -8,7 +8,7 @@
 import Foundation
 
 /// Output processing model
-public struct NextTriggerOutput: RawRepresentable, Equatable {
+public struct CronOutput: RawRepresentable, Equatable {
     public var rawValue: String
     
     public typealias RawValue = String
